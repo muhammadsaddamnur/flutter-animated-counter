@@ -114,7 +114,7 @@ class AnimatedFlipCounter extends StatelessWidget {
     this.decimalSeparator = '.',
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.padding = EdgeInsets.zero,
-    this.useTabularFigures = true,
+    this.useTabularFigures = false,
   })  : assert(fractionDigits >= 0, 'fractionDigits must be non-negative'),
         assert(wholeDigits >= 0, 'wholeDigits must be non-negative'),
         super(key: key);
