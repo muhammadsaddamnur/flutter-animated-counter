@@ -89,6 +89,12 @@ class AnimatedFlipCounter extends StatelessWidget {
   /// Add padding for every digit, defaults is none.
   final EdgeInsets padding;
 
+  /// An optional [TextStyle] to apply to text elements other than the main counter text.
+  ///
+  /// This can be used to customize the appearance of additional text, such as suffixes or prefixes,
+  /// displayed alongside the animated counter.
+  final TextStyle? otherTextStyle;
+
   const AnimatedFlipCounter({
     Key? key,
     required this.value,
@@ -106,6 +112,7 @@ class AnimatedFlipCounter extends StatelessWidget {
     this.decimalSeparator = '.',
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.padding = EdgeInsets.zero,
+    this.otherTextStyle,
   })  : assert(fractionDigits >= 0, 'fractionDigits must be non-negative'),
         assert(wholeDigits >= 0, 'wholeDigits must be non-negative'),
         super(key: key);
@@ -114,7 +121,10 @@ class AnimatedFlipCounter extends StatelessWidget {
   Widget build(BuildContext context) {
     // Merge the text style with the default style, and request tabular figures
     // for consistent width of digits (if supported by the font).
-    final style = DefaultTextStyle.of(context).style.merge(textStyle);
+    final style = DefaultTextStyle.of(context)
+        .style
+        .merge(textStyle)
+        .merge(otherTextStyle);
 
     // Layout number "0" (probably the widest digit) to see its size
     final prototypeDigit = TextPainter(
