@@ -89,13 +89,9 @@ class AnimatedFlipCounter extends StatelessWidget {
   /// Add padding for every digit, defaults is none.
   final EdgeInsets padding;
 
-  /// Use tabular figures if the font supports them.
-  ///
-  /// Tabular figures are a type of numeral design where each digit has the
-  /// same width, making them ideal for numerical displays where consistent
-  /// alignment is important, such as in counters, tables, or financial data.
-  /// This ensures that digits do not shift positions when numbers change.
-  final bool useTabularFigures;
+  /// An optional list of [FontFeature]s to apply to the text, allowing for advanced
+  /// typographic styling such as small caps, old-style figures, or stylistic alternates.
+  final List<FontFeature>? fontFeatures;
 
   const AnimatedFlipCounter({
     Key? key,
@@ -114,7 +110,7 @@ class AnimatedFlipCounter extends StatelessWidget {
     this.decimalSeparator = '.',
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.padding = EdgeInsets.zero,
-    this.useTabularFigures = false,
+    this.fontFeatures,
   })  : assert(fractionDigits >= 0, 'fractionDigits must be non-negative'),
         assert(wholeDigits >= 0, 'wholeDigits must be non-negative'),
         super(key: key);
@@ -124,9 +120,9 @@ class AnimatedFlipCounter extends StatelessWidget {
     // Merge the text style with the default style, and request tabular figures
     // for consistent width of digits (if supported by the font).
     final style = DefaultTextStyle.of(context).style.merge(textStyle).merge(
-        useTabularFigures
-            ? const TextStyle(fontFeatures: [FontFeature.tabularFigures()])
-            : const TextStyle());
+        TextStyle(
+            fontFeatures:
+                fontFeatures ?? [const FontFeature.tabularFigures()]));
 
     // Layout number "0" (probably the widest digit) to see its size
     final prototypeDigit = TextPainter(
