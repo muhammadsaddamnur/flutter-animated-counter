@@ -211,7 +211,7 @@ class AnimatedFlipCounter extends StatelessWidget {
               i,
               Text(
                 thousandSeparator!,
-                style: textStyle?.copyWith(letterSpacing: -1),
+                style: textStyle?.copyWith(letterSpacing: -1.2),
               ));
         }
         counter++;
@@ -298,7 +298,7 @@ class _SingleDigitFlipCounter extends StatelessWidget {
           width: visible
               ? w -
                   ({
-                        1: 4,
+                        1: 5,
                         7: 3,
                         3: 2,
                         5: 2,
@@ -306,6 +306,7 @@ class _SingleDigitFlipCounter extends StatelessWidget {
                         2: 2,
                         8: 1,
                         9: 1,
+                        4: 1,
                       }[whole % 10] ??
                       0)
               : 0,
