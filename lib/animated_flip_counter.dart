@@ -1,5 +1,4 @@
 import 'dart:math' as math;
-import 'dart:ui' show FontFeature;
 
 import 'package:flutter/widgets.dart';
 
@@ -208,7 +207,12 @@ class AnimatedFlipCounter extends StatelessWidget {
       int counter = 0;
       for (int i = integerWidgets.length; i > firstVisibleDigitIndex; i--) {
         if (counter > 0 && counter % 3 == 0) {
-          integerWidgets.insert(i, Text(thousandSeparator!));
+          integerWidgets.insert(
+              i,
+              Text(
+                thousandSeparator!,
+                style: textStyle?.copyWith(letterSpacing: -1),
+              ));
         }
         counter++;
       }
@@ -291,7 +295,20 @@ class _SingleDigitFlipCounter extends StatelessWidget {
         final h = size.height + padding.vertical;
 
         return SizedBox(
-          width: visible ? w : 0,
+          width: visible
+              ? w -
+                  ({
+                        1: 4,
+                        7: 3,
+                        3: 2,
+                        5: 2,
+                        6: 2,
+                        2: 2,
+                        8: 1,
+                        9: 1,
+                      }[whole % 10] ??
+                      0)
+              : 0,
           height: h,
           child: Stack(
             children: <Widget>[
@@ -324,7 +341,7 @@ class _SingleDigitFlipCounter extends StatelessWidget {
       // the text color directly.
       child = Text(
         '$digit',
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.start,
         style: TextStyle(color: color.withOpacity(opacity.clamp(0, 1))),
       );
     } else {
@@ -333,7 +350,7 @@ class _SingleDigitFlipCounter extends StatelessWidget {
         opacity: opacity.clamp(0, 1),
         child: Text(
           '$digit',
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.start,
         ),
       );
     }
