@@ -302,7 +302,7 @@ class _SingleDigitFlipCounter extends StatelessWidget {
                         7: 3,
                         3: 2,
                         5: 2,
-                        6: 2,
+                        6: 1.5,
                         2: 2,
                         8: 1,
                         9: 1,
